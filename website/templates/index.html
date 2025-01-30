@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Flask File Uploads Tutorial</h1>
+    <h2>input</h2>
+    <form method="POST">
+        <input type="text" name="text_input" placeholder="Isin Number">
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if user_input %}
+    <h2>Earnings</h2> 
+    <div class="mt-4">
+        {{ table | safe }}
+    </div>
+    <h2> Income </h2>
+    <div class="mt-4">
+        {{ income_table | safe }}
+    </div>
+    {% endif %}
+</body>
+</html>
