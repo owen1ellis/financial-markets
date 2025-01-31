@@ -8,6 +8,7 @@ earnings_df = earnings_df.sort_values(by="date")
 income_df = pd.read_csv("income.csv")
 # income_df["date"] = pd.to_datetime(income_df["date"])
 
+extraction_df = pd.read_csv("extraction.csv")
 
 class IncomeData:
 
@@ -56,18 +57,14 @@ class NewsData:
         if isin_number is None:
             return copy(self.data[self.data["symbol"]==ticker])
         
-        return copy(self.data[news_df["isin"]==isin_number])
-    
-    extraction_df = pd.read_csv("extraction.csv")
-extraction_df = extraction_df[["isin", "ticker", "source", "content"]] # Not working 
-print(extraction_df)
+        return copy(self.data[news_df["isin"]==isin_number]) 
 
 class ExtractionData:
 
     def __init__(self):
-        self.data = extraction_df
+        self.data = extraction_df[["isin", "ticker", "news"]]
 
-    def get_eps(self, isin_number: str=None, ticker: str=None):
+    def get_data(self, isin_number: str=None, ticker: str=None):
         if isin_number is None:
             return copy(self.data[self.data["symbol"]==ticker])
         
