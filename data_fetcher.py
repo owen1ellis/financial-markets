@@ -18,7 +18,7 @@ class IncomeData:
         if isin_number is None: #this is for the case where isin is none
             return copy(self.data[self.data["symbol"]==ticker])
         
-        return copy(self.data[earnings_df["isin"]==isin_number])
+        return copy(self.data[self.data["isin"]==isin_number])
     
 
 class EarningsData:
@@ -41,4 +41,36 @@ isin = "US0378331005"
 
 e_test = IncomeData()
 isin = "US0378331005"
-print(e_test.get_data(isin))
+# print(e_test.get_data(isin))
+
+news_df = pd.read_csv("news.csv")
+news_df = news_df[["isin", "ticker", "source", "content"]]
+print(news_df)
+
+class NewsData:
+
+    def __init__(self):
+        self.data = news_df
+
+    def get_news(self, isin_number: str=None, ticker: str=None):
+        if isin_number is None:
+            return copy(self.data[self.data["symbol"]==ticker])
+        
+        return copy(self.data[news_df["isin"]==isin_number])
+    
+    extraction_df = pd.read_csv("extraction.csv")
+extraction_df = extraction_df[["isin", "ticker", "source", "content"]] # Not working 
+print(extraction_df)
+
+class ExtractionData:
+
+    def __init__(self):
+        self.data = extraction_df
+
+    def get_eps(self, isin_number: str=None, ticker: str=None):
+        if isin_number is None:
+            return copy(self.data[self.data["symbol"]==ticker])
+        
+        return copy(self.data[extraction_df["isin"]==isin_number])
+    
+
