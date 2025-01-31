@@ -5,7 +5,7 @@ from loguru import logger
 
 from data_fetcher import EarningsData, IncomeData, NewsData, ExtractionData
 
-app = Flask(__name__, template_folder='website/templates')
+app = Flask(__name__, template_folder='website/templates', static_folder='website/static')
 
 earnings = EarningsData()
 income = IncomeData()
@@ -27,7 +27,7 @@ def home():
             earnings_df = earnings.get_eps(user_input)
             income_df = income.get_data(user_input)
             news_df = news.get_news(user_input)
-            extraction_df = extraction.get_news(user_input)
+            extraction_df = extraction.get_data(user_input)
 
     table_html = earnings_df.to_html(classes="table table-striped", index=False)  # Convert DataFrame to HTML
     income_tbl_html = income_df.to_html(classes="table table-striped", index=False)  # Convert DataFrame to HTML

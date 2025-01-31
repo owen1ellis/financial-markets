@@ -1,0 +1,71 @@
+/* Basic styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* Hide radio buttons */
+input[type="radio"] {
+    display: none;
+}
+
+/* Style the tab labels */
+.tab-label {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background: #ccc;
+    border: 1px solid #aaa;
+    margin: 0 2px;
+}
+
+/* Active tab styling */
+input[type="radio"]:checked + label {
+    background: #fff;
+    border-bottom: 2px solid black;
+}
+
+/* Tab content - initially hidden */
+.tab-content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #aaa;
+    background: #fff;
+    margin-top: 5px;
+}
+
+/* Show the selected tab content */
+#tab1:checked ~ .content-1,
+#tab2:checked ~ .content-2,
+#tab3:checked ~ .content-3,
+#tab4:checked ~ .content-4 {
+    display: block;
+}
+
+/* Container for tabs */
+.tabs {
+    margin-top: 20px;
+}
+
+/* Centering the tables */
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    overflow-x: auto; /* Ensures tables are scrollable if too wide */
+}
+
+.table-container table {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 1000px; /* Limits the width for readability */
+}
+
+.table-container table, 
+.table-container th, 
+.table-container td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
