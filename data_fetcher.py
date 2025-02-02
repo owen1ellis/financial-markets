@@ -2,15 +2,6 @@ import pandas as pd
 from copy import copy
 from loguru import logger
 
-earnings_df = pd.read_csv("earnings.csv")
-earnings_df["date"] = pd.to_datetime(earnings_df["date"])
-earnings_df = earnings_df.sort_values(by="date")
-
-income_df = pd.read_csv("income.csv")
-# income_df["date"] = pd.to_datetime(income_df["date"])
-
-extraction_df = pd.read_csv("extraction.csv")
-
 class DataSource:
     __data: pd.DataFrame
 
@@ -38,7 +29,7 @@ class DataSource:
 class IncomeData:
 
     def __init__(self):
-        self.data = income_df
+        self.data = pd.read_csv("income.csv")
 
     def get_data(self, isin_number: str=None, ticker: str=None):
         if isin_number is None: #this is for the case where isin is none
@@ -51,50 +42,51 @@ class IncomeData:
 class EarningsData(DataSource):
 
     def __init__(self):
-        self.data = earnings_df
+        self.data = pd.read_csv("earnings.csv")
+        self.data["date"] = pd.to_datetime(self.data["date"])
+        self.data = self.data.sort_values(by="date")
 
     def get_eps(self, isin_number: str=None, ticker: str=None, start_date_str: str=None, end_date_str: str=None):
         if isin_number is None:
             df = copy(self.data[self.data["symbol"]==ticker])
         else:
-            df = copy(self.data[earnings_df["isin"]==isin_number])
+            df = copy(self.data[self.data["isin"]==isin_number])
         return self.filter_df(df, start_date_str, end_date_str)
     
 
     
-e_test = EarningsData()
+class NewsData(DataSource):
+
+    def __init__(self):
+        self.data = pd.read_csv("news.csv")
+        self.data = self.data[["isin", "ticker", "source", "content"]]
+
+    def get_data(self, isin_number: str=None, ticker: str=None):
+        if isin_number is None:
+            return copy(self.data[self.data["symbol"]==ticker])
+        
+        return copy(self.data[self.data["isin"]==isin_number]) 
+
+class ExtractionData:
+
+    def __init__(self):
+        self. data =  pd.read_csv("extraction.csv")
+        self.data = self.data[["isin", "ticker", "news"]]
+
+    def get_data(self, isin_number: str=None, ticker: str=None):
+        if isin_number is None:
+            return copy(self.data[self.data["symbol"]==ticker])
+        
+        return copy(self.data[self.data["isin"]==isin_number])
+    
+
 isin = "US0378331005"
 # print(e_test.get_eps(isin, start_date_str="2003-01-30"))
-
 
 e_test = IncomeData()
 isin = "US0378331005"
 # print(e_test.get_data(isin))
 
-news_df = pd.read_csv("news.csv")
-news_df = news_df[["isin", "ticker", "source", "content"]]
-
-class NewsData(DataSource):
-
-    def __init__(self):
-        self.data = news_df
-
-    def get_data(self, isin_number: str=None, ticker: str=None):
-        if isin_number is None:
-            return copy(self.data[self.data["symbol"]==ticker])
-        
-        return copy(self.data[news_df["isin"]==isin_number]) 
-
-class ExtractionData:
-
-    def __init__(self):
-        self.data = extraction_df[["isin", "ticker", "news"]]
-
-    def get_data(self, isin_number: str=None, ticker: str=None):
-        if isin_number is None:
-            return copy(self.data[self.data["symbol"]==ticker])
-        
-        return copy(self.data[extraction_df["isin"]==isin_number])
     
 
     
