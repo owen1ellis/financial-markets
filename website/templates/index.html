@@ -33,6 +33,9 @@
         <input type="radio" id="tab4" name="tabs">
         <label for="tab4" class="tab-label">Extraction</label>
 
+        <input type="radio" id="tab5" name="tabs">
+        <label for="tab5" class="tab-label">Plot</label>
+
         <div class="tab-content content-1">
             <div class="table-container">{{ table | safe }}</div>
         </div>
@@ -47,6 +50,10 @@
 
         <div class="tab-content content-4">
             <div class="table-container">{{ extraction_tbl | safe }}</div>
+        </div>
+
+        <div class="tab-content content-5">
+            <div class="plot-container">{{ plot_html | safe }}</div>
         </div>
     </div>
 

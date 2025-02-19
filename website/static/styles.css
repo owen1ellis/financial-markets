@@ -43,7 +43,8 @@ input[type="radio"]:checked + label {
 #tab1:checked ~ .content-1,
 #tab2:checked ~ .content-2,
 #tab3:checked ~ .content-3,
-#tab4:checked ~ .content-4 {
+#tab4:checked ~ .content-4,
+#tab5:checked ~ .content-5{
     display: block;
 }
 
@@ -80,4 +81,14 @@ input[type="radio"]:checked + label {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
+}
+
+.plot-container {
+    width: 100%;
+    height: 500px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    align-items: center;
+    max-width: 95%; 
 }
