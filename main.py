@@ -5,6 +5,8 @@ from loguru import logger
 
 from data_fetcher import EarningsData, IncomeData, NewsData, ExtractionData
 from graph_gen import fig
+from scatter_sue import fig_sue
+from scatter_cor import fig_cor
 import plotly.io as pio
 
 app = Flask(__name__, template_folder='website/templates', static_folder='website/static')
@@ -41,7 +43,16 @@ def home():
     news_tbl = news_df.to_html(classes="table table-striped", index=False)
     extraction_tbl = extraction_df.to_html(classes="table table-striped", index=False)
     start_date, end_date = None, None
-    return render_template("index.html", table=table_html, user_input=user_input, income_table=income_tbl_html, news_tbl=news_tbl, extraction_tbl=extraction_tbl,  plot_html=plot_html)
+    return render_template("index.html", 
+        table=table_html, 
+        user_input=user_input, 
+        income_table=income_tbl_html,
+        news_tbl=news_tbl, 
+        extraction_tbl=extraction_tbl,
+        plot_html = pio.to_html(fig, full_html=False),
+        sue_plot=pio.to_html(fig_sue, full_html=False),
+        cor_plot=pio.to_html(fig_cor, full_html=False)
+        )
 
     
 
